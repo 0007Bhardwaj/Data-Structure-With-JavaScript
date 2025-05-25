@@ -18,17 +18,17 @@
 // IMPORTANT QUESTIONS
 // QUESTION 1- REVESE VOWELS OF STRING USING TWO POINTERS
 
-function reverseStringVowels(string = "hello") {
-  const vowels = new Set(["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]);
-  const arr = string.split("");
-  let left = 0;
-  let right = arr.length - 1;
+function reverseStringVowels(str = "hello") {
+  const vowels = new Set("aeiouAEIOU");
+  const arr = [...str];
+  let left = 0, right = arr.length - 1;
 
   while (left < right) {
-    while (left < right && !vowels.has(arr[left])) left++;
-    while (left < right && !vowels.has(arr[right])) right--;
-    if (left < right) {
-      // Swap vowels
+    if (!vowels.has(arr[left])) {
+      left++;
+    } else if (!vowels.has(arr[right])) {
+      right--;
+    } else {
       [arr[left], arr[right]] = [arr[right], arr[left]];
       left++;
       right--;
@@ -37,6 +37,9 @@ function reverseStringVowels(string = "hello") {
 
   return arr.join("");
 }
+
+
+
 
 // QUESTION 2- REVESE COMPLETE  STRING USING TWO POINTERS
 
