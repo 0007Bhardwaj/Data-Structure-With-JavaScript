@@ -21,7 +21,8 @@
 function reverseStringVowels(str = "hello") {
   const vowels = new Set("aeiouAEIOU");
   const arr = [...str];
-  let left = 0, right = arr.length - 1;
+  let left = 0,
+    right = arr.length - 1;
 
   while (left < right) {
     if (!vowels.has(arr[left])) {
@@ -37,9 +38,6 @@ function reverseStringVowels(str = "hello") {
 
   return arr.join("");
 }
-
-
-
 
 // QUESTION 2- REVESE COMPLETE  STRING USING TWO POINTERS
 
@@ -62,14 +60,14 @@ function reverseCompleteString(string = "hello") {
 function removeDuplicateSortedArray(nums = []) {
   let left = 0;
 
-    for (let right = 1; right < nums.length; right++) {
-        if (nums[left] !== nums[right]) {
-            left++;
-            nums[left] = nums[right];
-        }
+  for (let right = 1; right < nums.length; right++) {
+    if (nums[left] !== nums[right]) {
+      left++;
+      nums[left] = nums[right];
     }
+  }
 
-    return left + 1;
+  return left + 1;
 }
 
 // QUESTION 4- REVESE WORDS OF A STRING // should not return extra space either in the end, between or start
@@ -207,23 +205,102 @@ function longestSubstringWithoutRepeatingCharacters(string = "GeeksForGeeks") {
   return maxLength;
 }
 
-
 // 3. LONGEST PALINDROME SUBSTRING
 
 function longestPalindrome(string = "babad") {
- let maxLength = 0;
+  let maxLength = 0;
   let subString = new Set();
   let left = 0;
   let right = 0;
-
 }
-
 
 // 4. MINIMUM SIZE SUBARRAY SUM LEETCODE - #209
 
 function minSubArrayLen(target, nums) {
-    let left = 0;
-    let sum = 0;
-    let min = Infinity;
-    
+  let left = 0;
+  let sum = 0;
+  let min = Infinity;
+}
+
+// 4. BUY AND SELL STOCK TO GET MAX PROFIT
+
+// console.log(maxProfit([7,1,5,3,6,4])); // ➤ 5 (Buy at 1, sell at 6)
+// console.log(maxProfit([7,6,4,3,1]));   // ➤ 0 (No profit)
+
+function maxProfit(prices) {
+  let buy = 0;
+  let sell = 1;
+  let maxProfit = 0;
+
+  while (sell < prices.length) {
+    if (prices[sell] > prices[buy]) {
+      maxProfit = Math.max(maxProfit, prices[sell] - prices[buy]);
+    } else {
+      buy = sell;
+    }
+    sell++
+  }
+
+  return maxProfit;
+}
+
+
+// IF WE WANT TO RETURN THE SUBARRAY
+
+function maxProfit(prices) {
+  let buy = 0;
+  let sell = 1;
+  let maxProfit = 0;
+  let bestBuy = 0;
+  let bestSell = 1;
+
+  while (sell < prices.length) {
+    if (prices[sell] > prices[buy]) {
+      if (prices[sell] - prices[buy] > maxProfit) {
+        bestBuy = buy;
+        bestSell = sell;
+      }
+      maxProfit = Math.max(maxProfit, prices[sell] - prices[buy]);
+    } else {
+      buy = sell;
+    }
+    sell++
+  }
+
+   // Return the subarray from bestBuy to bestSell (inclusive)
+  return maxProfit > 0 ? prices.slice(bestBuy, bestSell + 1) : [];
+}
+
+
+// IF WE HAVE K DAYS OF DIFFERENCE BETWEEN BUY AND SELL DAY
+
+function maxProfit(prices, K) {
+  let buy = 0;
+  let sell = K; // Start at K to ensure K-day gap
+  let maxProfit = 0;
+  let bestBuy = 0;
+  let bestSell = K;
+
+  while (sell < prices.length) {
+    if (sell - buy >= K) {
+      if (prices[sell] > prices[buy]) {
+        const profit = prices[sell] - prices[buy];
+        if (profit > maxProfit) {
+          maxProfit = profit;
+          bestBuy = buy;
+          bestSell = sell;
+        }
+      } else {
+        // Found a lower price — better to consider buying later
+        buy = sell - K + 1;  // Ensure that buy stays K days before sell
+      }
+    } else {
+      // Not enough gap yet; don't compute profit
+      // Keep advancing sell until the gap is valid
+    }
+
+    sell++;
+  }
+
+  return maxProfit > 0 ? prices.slice(bestBuy, bestSell + 1) : [];
 }

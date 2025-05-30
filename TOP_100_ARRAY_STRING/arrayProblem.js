@@ -41,7 +41,7 @@ function maxProfit(prices = []) {
 
 function containsDuplicate(array = [1, 2, 3, 4, 5, 6, 1, 2]) {
   // first approach
-  return array.length !== new Set(array).size;
+  // return array.length !== new Set(array).size;
   // second approach
   const mySet = new Set();
   for (const element of array) {
@@ -58,10 +58,7 @@ function containsDuplicate(array = [1, 2, 3, 4, 5, 6, 1, 2]) {
 // Input:  [1, 2, 3, 4]
 // Output: [24, 12, 8, 6]
 
-function productOfArrayExceptSelf(array = []) {
- 
-}
-
+function productOfArrayExceptSelf(array = []) {}
 
 // 5 - Maximum Subarray (LC 53) - Kadane's algorithm for max sum subarray
 
@@ -69,15 +66,16 @@ function productOfArrayExceptSelf(array = []) {
 // Output: 6
 
 function maxSubArray(nums) {
-  let maxSum = nums[0];
-  let currentSum = nums[0];
 
-  for (let i = 1; i < nums.length; i++) {
-    currentSum = Math.max(nums[i], currentSum + nums[i]);
-    maxSum = Math.max(maxSum, currentSum);
-  }
-
-  return maxSum;
 }
 
+// 6. FIND SMALLEST ELEMENT IN THE ARRAY
 
+function findSmallesElement(array = []) {
+  let smallest = array[0];
+  for (let i = 1; i < array.length; i++) {
+    smallest = Math.min(smallest, array[i]);
+  }
+
+  return smallest;
+}
